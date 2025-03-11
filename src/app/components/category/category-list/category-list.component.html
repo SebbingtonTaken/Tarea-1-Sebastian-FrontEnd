@@ -1,0 +1,46 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of categoryList; track item.id) {
+        <tr>
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.nombre}}</td>
+          <td>{{item.descripcion}}</td>
+          <td>
+            <button type="button" (click)="showDetailModal(item, detailModal)"  class="btn btn-secondary">
+              <i class="fa-solid fa-eye white"
+              ></i>
+            </button>
+            <button type="button" (click)="deleteGame(item)" class="btn btn-danger">
+              <i class="fa-solid fa-trash white"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7">
+            <div class="d-flex justify-content-center align-items-center w-100">
+              <p class="mb-0">There are not prefereceList</p>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<app-modal #detailModal>
+  <app-category-form
+  (callParentEvent)="onFormEventCalled($event)"
+  [title]="'Update Game'"
+  [toUpdateCategory]="selectedItem"
+  />
+</app-modal>
